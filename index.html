@@ -184,13 +184,13 @@
 			const month = today.getMonth();
 			const day = today.getDate();
 
-			if (month === 11 && day >= 1 || month === 6 && day <= 6) {
+			if (month === 11 && day >= 1 && month === 3 && day <= 6) {
 				snowoverlay.style.display = 'block';
 			} else {
 				snowoverlay.style.display = 'none';
 			}
 
-			if (month === 8 && day >= 22 || month === 11 && day <= 21) {
+			if (month === 8 && day >= 22 && month === 11 && day <= 21) {
 				falloverlay.style.display = 'block';
 			} else {
 				falloverlay.style.display = 'none';
