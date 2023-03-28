@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Elegant Chef | Events</title>
+    <link rel="stylesheet" href="../Main Menu/css/normalize.css">
+</head>
+<body>
+    <style>
+			#navbar {
+				width: 100%;
+				position: fixed;
+				z-index: 10;
+				background-color: white;
+				height: 50px !important;
+                float: right;
+                box-shadow: 0px 0px 22px 4px #ccc;
+			}
+			.navlink {
+				color: gray;
+				font-family: 'Times New Roman', Times, serif;
+				font-size: 20px;
+				padding: 15px;
+				text-decoration: none;
+				float: left;
+			}
+
+			.current {
+				text-decoration: underline;
+			}
+
+            select {
+                width: 100px;
+				border: 0px;
+                outline: 0px;
+				background-color: transparent;
+			}
+
+            select:active {
+                border: 0px;
+                background-color: transparent;
+            }
+    </style>
+
+    <div id="navbar">
+        <img style="margin-top: 10px;" width="100px" height="20px" src="../Images/1stars.png" id="stars">
+        <div class="navContainer" style="float: right;">
+            <!-- <span style="padding-right: 60%;"></span> -->
+            <a href="../index.html" class="navlink">Home</a>
+            <a href="../About Us/aboutus.html" class="navlink">About Us</a>
+            <select name="menudropdown" id="menudropdown" class="navlink">
+                <option value="Menu" selected>Menu</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Catering">Catering</option>
+                <option value="Seasonal">Seasonal</option>
+            </select>
+            <a href="events.html" class="navlink current">Events</a>
+            <a href="../Contact/contact.html" class="navlink">Contact</a>
+            <!-- <span style="padding-left: 15%;"></span> -->
+        </div>
+    </div>
+
+    <script>
+        let starlist = [];
+        var starsimg = document.getElementById("stars");
+        let stars;
+        fetch('https://sheetdb.io/api/v1/9igj3fqq5le99')
+            .then((response) => response.json())
+            .then((data) => {
+                for (let i = 0; i < data.length; i++) {
+                    starlist += data[i].stars;
+                    
+                }
+                let numstars = 0;
+                for (let i = 0; i < starlist.length; i++) {
+                    numstars += parseInt(starlist[i]);
+                }
+                numstars = parseInt(numstars / starlist.length);
+                starsimg.src = `../Images/${numstars}stars.png`;
+            });
+        
+    </script>
+
+    <script>
+        document.getElementById("menudropdown").addEventListener('change', function() {
+            let val = document.getElementById("menudropdown").value;
+            if (val == "Lunch") {
+                window.open('../Main Menu/index.html', '_self');
+            }
+            if (val == "Catering") {
+                window.open('../Main Menu/snow.html', '_self');
+            }
+            if (val == "Seasonal") {
+                window.open('../Main Menu/fall.html', '_self');
+            }
+        });
+    </script>
+</body>
+</html>

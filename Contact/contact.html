@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Elegant Chef | Contact</title>
+    <link rel="stylesheet" href="../Main Menu/css/normalize.css">
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+    <style>
+        #navbar {
+            width: 100%;
+            position: fixed;
+            z-index: 10;
+            background-color: white;
+            height: 50px !important;
+            float: right;
+            box-shadow: 0px 0px 22px 4px #ccc;
+        }
+        .navlink {
+            color: gray;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+            padding: 15px;
+            text-decoration: none;
+            float: left;
+        }
+
+        .navlink:visited {
+            color: gray;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+            padding: 15px;
+            text-decoration: none;
+            float: left;
+        }
+
+        .current {
+            text-decoration: underline;
+        }
+
+        select {
+            width: 100px;
+            border: 0px;
+            outline: 0px;
+            background-color: transparent;
+        }
+
+        select:active {
+            border: 0px;
+            background-color: transparent;
+        }
+    </style>
+
+    <div id="navbar">
+        <img style="margin-top: 10px;" width="100px" height="20px" src="../Images/0stars.png" id="stars">
+        <div class="navContainer" style="float: right;">
+            
+            <!-- <span style="padding-right: 60%;"></span> -->
+            <a href="../index.html" class="navlink">Home</a>
+            <a href="../About Us/aboutus.html" class="navlink">About Us</a>
+            <select name="menudropdown" id="menudropdown" class="navlink">
+                <option value="Menu" selected>Menu</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Catering">Catering</option>
+                <option value="Seasonal">Seasonal</option>
+            </select>
+            <a href="../Events/events.html" class="navlink">Events</a>
+            <a href="contact.html" class="navlink current">Contact</a>
+            <!-- <span style="padding-left: 15%;"></span> -->
+        </div>
+    </div>
+
+    <h1>The Elegant Chef</h1>
+    <script>
+        let starlist = [];
+        var starsimg = document.getElementById("stars");
+        let stars;
+        fetch('https://sheetdb.io/api/v1/9igj3fqq5le99')
+            .then((response) => response.json())
+            .then((data) => {
+                for (let i = 0; i < data.length; i++) {
+                    starlist += data[i].stars;
+                    
+                }
+                let numstars = 0;
+                for (let i = 0; i < starlist.length; i++) {
+                    numstars += parseInt(starlist[i]);
+                }
+                numstars = parseInt(numstars / starlist.length);
+                starsimg.src = `../Images/${numstars}stars.png`;
+            });
+        
+    </script>
+    <div id="contacts">
+        <strong><p>ADDRESS</p></strong>
+        ⠀<a href="http://maps.google.com/?q=100 Littleton Rd Westford, MA 01886">100 Littleton Rd Westford, MA 01886</a>
+        <br>
+        <strong><p>PHONE NUMBER</p></strong>
+        ⠀<a href="tel: 978-692-9958">978-692-9958</a>
+        <strong><p>SUBMIT REVIEW</p></strong>
+        <form method="post" id="sheetdb-form" action="https://sheetdb.io/api/v1/9igj3fqq5le99">
+            ⠀Name: <input name="data[name]" type="text" required><br>
+            ⠀Email: <input name="data[email]" type="email" required pattern="^((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)$"><br>
+            ⠀City:  ⠀<input name="data[city]" type="text" required><br>
+            ⠀Comment: <textarea name="data[comment]" rows="8" cols="28"></textarea><br>
+            ⠀Stars:  ⠀<input name="data[stars]" type="number"  min="1" max="5" required><br>
+            <br>
+            <button type="submit">Submit</button>
+            <br><span>⠀</span>
+        </form>
+
+        <script>
+        var form = document.getElementById('sheetdb-form');
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+            fetch(form.action, {
+                method : "POST",
+                body: new FormData(document.getElementById("sheetdb-form")),
+            }).then(
+                response => response.json()
+            ).then((html) => {
+            // you can put any JS code here
+            alert('thanks for the review')
+            });
+        });
+        </script>
+    </div>
+
+    <script>
+        document.getElementById("menudropdown").addEventListener('change', function() {
+            let val = document.getElementById("menudropdown").value;
+            if (val == "Lunch") {
+                window.open('../Main Menu/index.html', '_self');
+            }
+            if (val == "Catering") {
+                window.open('../Main Menu/snow.html', '_self');
+            }
+            if (val == "Seasonal") {
+                window.open('../Main Menu/fall.html', '_self');
+            }
+        });
+    </script>
+</body>
+</html>
